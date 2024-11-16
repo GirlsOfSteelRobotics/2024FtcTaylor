@@ -11,11 +11,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class DrivetrainSubsystem {
 
-    DcMotor backLeft;
-    DcMotor backRight;
-    DcMotor frontRight;
-    DcMotor frontLeft;
-    IMU imu;
+    private DcMotor backLeft;
+    private DcMotor backRight;
+    private DcMotor frontRight;
+    private DcMotor frontLeft;
+    private IMU imu;
 
     public DrivetrainSubsystem(HardwareMap hardwareMap) {
         backLeft = hardwareMap.get(DcMotor.class, "backleft");
@@ -24,13 +24,13 @@ public class DrivetrainSubsystem {
         frontRight = hardwareMap.get(DcMotor.class, "frontright");
         imu = hardwareMap.get(IMU.class, "imu");
         IMU.Parameters myIMUparameters;
-                myIMUparameters = new IMU.Parameters(
-                        new RevHubOrientationOnRobot(
-                                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-        RevHubOrientationOnRobot.UsbFacingDirection.LEFT
-                        )
-                );
-                imu.initialize(myIMUparameters);
+        myIMUparameters = new IMU.Parameters(
+                new RevHubOrientationOnRobot(
+                        RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                        RevHubOrientationOnRobot.UsbFacingDirection.LEFT
+                )
+        );
+        imu.initialize(myIMUparameters);
 
 
 
@@ -53,6 +53,15 @@ public class DrivetrainSubsystem {
         robotOrientation = imu.getRobotYawPitchRollAngles();
         double Yaw = robotOrientation.getYaw(AngleUnit.DEGREES);
         return Yaw;
+    }
+    public void turnToAngle (double angle){
+        double error = getAngle() - angle;
+        if (error > 0) {
+            driveWithJoystick (0,0,0.5);
+        }
+        if (error < 0) {
+            driveWithJoystick (0,0, -0.5);
+        }
     }
 }
 

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class LinearSlide {
-    DcMotor linearSlide;
+    private DcMotor linearSlide;
 
     public LinearSlide (HardwareMap hardwareMap) {
         linearSlide = hardwareMap.get(DcMotor.class, "linearslide");

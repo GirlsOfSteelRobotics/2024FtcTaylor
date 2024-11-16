@@ -3,9 +3,10 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.subsystems.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.DrivetrainSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.LinearSlide;
-import org.firstinspires.ftc.teamcode.subsystems.ClawSubsystem;
+
 
 @TeleOp
 public class Team3TaylorTelopJava extends LinearOpMode {
@@ -38,8 +39,8 @@ public class Team3TaylorTelopJava extends LinearOpMode {
             } else if(gamepad2.dpad_up){
                 claw.closeClaw();
             }
-
-
+            telemetry.addData("Yaw Angle", drivetrain.getAngle());
+            telemetry.update();
         }
 
     }
