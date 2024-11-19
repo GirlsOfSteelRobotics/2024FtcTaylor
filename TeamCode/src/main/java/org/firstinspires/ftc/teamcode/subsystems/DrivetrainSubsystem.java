@@ -10,12 +10,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class DrivetrainSubsystem {
+    private static final double TURNING_ALLOWABLE_ERROR = 3;
 
-    private DcMotor backLeft;
-    private DcMotor backRight;
-    private DcMotor frontRight;
-    private DcMotor frontLeft;
-    private IMU imu;
+    DcMotor backLeft;
+    DcMotor backRight;
+    DcMotor frontRight;
+    DcMotor frontLeft;
+    IMU imu;
 
     public DrivetrainSubsystem(HardwareMap hardwareMap) {
         backLeft = hardwareMap.get(DcMotor.class, "backleft");
@@ -55,13 +56,23 @@ public class DrivetrainSubsystem {
         return Yaw;
     }
     public void turnToAngle (double angle){
-        double error = getAngle() - angle;
-        if (error > 0) {
-            driveWithJoystick (0,0,0.5);
+        double error = getAngle ()- angle;
+        if (Math.abs (error) < TURNING_ALLOWABLE_ERROR) {
+            allDriveMotorsStop ();
         }
-        if (error < 0) {
-            driveWithJoystick (0,0, -0.5);
+        else if (error > 0) {
+            driveWithJoystick (0,0,0.4);
         }
+        else if (error < 0) {
+            driveWithJoystick (0,0, -0.4);
+        }
+    }
+    public void allDriveMotorsStop () {
+        backLeft.setPower (0);
+        backRight.setPower(0);
+        frontRight.setPower(0);
+        frontLeft.setPower(0);
+
     }
 }
 
