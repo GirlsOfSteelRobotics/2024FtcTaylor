@@ -13,12 +13,15 @@ public class LinearSlideTest extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            if (gamepad2.a) {
+            if (gamepad2.y) {
                 linearSlide.goToHeight(10);
-            } else if (gamepad1.b) {
+            } else if (gamepad2.b) {
                 linearSlide.goToHeight(28);
-            } else if (gamepad1.x) {
+            } else if (gamepad2.x) {
                 linearSlide.goToHeight(15);
+            } else if (gamepad2.a) {
+                linearSlide.goToHeight(0);
+
             } else {
                 linearSlide. allDriveMotorsStop();
             }

@@ -15,11 +15,11 @@ public class LinearSlide {
     }
 
     public void goUp() {
-        linearSlide.setPower(1);
+        linearSlide.setPower(-1);
     }
 
     public void goDown() {
-        linearSlide.setPower(-1);
+        linearSlide.setPower(1);
     }
 
     public void stop() {
