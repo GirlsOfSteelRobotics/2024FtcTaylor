@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class LinearSlide {
-    private static final double TICKS_PER_INCH = (-2843 - -183 ) / 27.5;
+   private static final double TICKS_PER_INCH = (-2843 - -183 ) / 27.5;
 
     private DcMotor linearSlide;
 
@@ -54,6 +55,16 @@ public class LinearSlide {
     }
     public void allDriveMotorsStop () {
         linearSlide.setPower(0);
+    }
+    
+    public void autoGoToHeight (double height, Telemetry telemetry) {
+         boolean isAtHeight = false;
+         while(!isAtHeight) {
+            isAtHeight = goToHeight( height);
+            
+            telemetry.addData("height", getHeight());
+            telemetry.update();
+         }
     }
 
 }

@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.LinearSlide;
 
@@ -17,15 +16,19 @@ public class StupidAuto extends LinearOpMode {
         ClawSubsystem claw = new ClawSubsystem(hardwareMap);
         waitForStart();
 
-        while (opModeIsActive()) {
+        if (opModeIsActive()) {
             claw.closeClaw();
+            sleep(5000);
 
-            boolean isAtHeight = false;
-            while(!isAtHeight) {
-                isAtHeight = linearSlide.goToHeight(10);
-            }
-
-            claw.closeClaw();
+            linearSlide.autoGoToHeight (10, telemetry);
+            claw.openClaw();
+            sleep(5000);
+            
+           linearSlide.autoGoToHeight (20, telemetry);
+            
+            
+            telemetry.addData("Done", true);
+            telemetry.update();
         }
     }
 }
