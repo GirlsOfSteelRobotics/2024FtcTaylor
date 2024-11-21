@@ -8,6 +8,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class LinearSlide {
    private static final double TICKS_PER_INCH = (-2843 - -183 ) / 27.5;
 
+   public static final double GROUND_HEIGHT = 0;
+   public static final double LOW_RUNG = 15;
+   public static final double LOW_BASKET = 28;
+
+
     private DcMotor linearSlide;
 
     public LinearSlide (HardwareMap hardwareMap) {

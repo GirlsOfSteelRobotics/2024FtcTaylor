@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class DrivetrainSubsystem {
     private static final double TURNING_ALLOWABLE_ERROR = 3;
+    private static final double TICKS_PER_INCH = (1);
 
     DcMotor backLeft;
     DcMotor backRight;
@@ -75,5 +76,46 @@ public class DrivetrainSubsystem {
         frontLeft.setPower(0);
 
     }
+    public void autoDriveStraight (double distanceForward) {
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        boolean drivenToDistance = false;
+        while (!drivenToDistance) {
+            double error = getDistanceMoved() - distanceForward;
+            if (Math.abs (error) < 1) {
+                allDriveMotorsStop();
+                drivenToDistance = true;
+            }
+            else if (error > 0) {
+                driveWithJoystick(0,0.3,0);
+            }
+            else if (error <0) {
+                driveWithJoystick(0,-0.3,0);
+            }
+        }
+    }
+
+    public void autoDriveStrafe (double distanceForward) {
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        boolean drivenToDistance = false;
+        while (!drivenToDistance) {
+            double error = getDistanceMoved() - distanceForward;
+            // If we are close enough to our goal, stop.
+            if (Math.abs(error) < 1) {
+                allDriveMotorsStop();
+                drivenToDistance = true;
+            } else if (error > 0) {
+                driveWithJoystick(0.3, 0, 0);
+            } else if (error < 0) {
+                driveWithJoystick(-0.3, 0, 0);
+            }
+        }
+    }
+
+    public double getDistanceMoved () {
+        return frontRight.getCurrentPosition() / TICKS_PER_INCH;
+    }
+
 }
 

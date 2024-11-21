@@ -20,7 +20,7 @@ public class LinearSlideTest extends LinearOpMode {
             } else if (gamepad2.x) {
                 linearSlide.goToHeight(15);
             } else if (gamepad2.a) {
-                linearSlide.goToHeight(0);
+                linearSlide.goToHeight(LinearSlide.GROUND_HEIGHT);
 
             } else {
                 linearSlide. allDriveMotorsStop();
